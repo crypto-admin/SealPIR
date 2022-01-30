@@ -1,4 +1,4 @@
-#include "pir.hpp"
+#include "src/pir.hpp"
 
 using namespace std;
 using namespace seal;

@@ -37,10 +37,13 @@ cc_library(
 )
 
 cc_binary(
-    name = "pir_client",
+    name = "pir_test",
     srcs = [
+        "main.cpp",
         "pir_client.cpp",
         "pir_client.hpp",
+        "pir_server.cpp",
+        "pir_server.hpp",
     ],
     copts = PIR_DEFAULT_COPTS,
     includes = PIR_DEFAULT_INCLUDES,
@@ -48,6 +51,7 @@ cc_binary(
         "//proto:payload_cc_grpc",
         "@com_microsoft_seal//:seal",
         "@com_github_grpc_grpc//:grpc++",
+        ":pir",
     ],
 )
 

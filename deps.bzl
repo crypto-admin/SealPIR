@@ -20,15 +20,24 @@ load("@rules_foreign_cc//:workspace_definitions.bzl", "rules_foreign_cc_dependen
 
 def pir_deps():
 
+    if "com_microsoft_gsl" not in native.existing_rules():
+        http_archive(
+            name = "com_microsoft_gsl",
+            sha256 = "d3234d7f94cea4389e3ca70619b82e8fb4c2f33bb3a070799f1e18eef500a083",
+            build_file = "//third_party:gsl.BUILD",
+            strip_prefix = "GSL-3.1.0/include",
+            urls = ["https://github.com/microsoft/GSL/archive/v3.1.0.tar.gz"],
+        )
+
     if "com_microsoft_seal" not in native.existing_rules():
         http_archive(
             name = "com_microsoft_seal",
             build_file = "//third_party:seal.BUILD",
-            sha256 = "13674a39a48c0d1c6ff544521cf10ee539ce1af75c02bfbe093f7621869e3406",
-            strip_prefix = "SEAL-3.5.6",
-            urls = ["https://github.com/microsoft/SEAL/archive/v3.5.6.tar.gz"],
+            strip_prefix = "SEAL-3.7.2",
+            sha256 = "12676de5766b8e2d641d6e45e92114ccdf8debd6f6d44b42a2ecc39a59b0bf13",
+            urls = ["https://github.com/microsoft/SEAL/archive/v3.7.2.tar.gz"],
         )
-
+        
     rules_proto_dependencies()
 
     rules_proto_toolchains()
