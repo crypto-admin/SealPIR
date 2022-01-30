@@ -1,6 +1,6 @@
-#include "pir.hpp"
-#include "pir_client.hpp"
-#include "pir_server.hpp"
+#include "src/pir.hpp"
+#include "src/pir_client.hpp"
+#include "src/pir_server.hpp"
 #include <seal/seal.h>
 #include <chrono>
 #include <memory>

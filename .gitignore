@@ -343,3 +343,8 @@ ASALocalRun/
 # Built targets.
 libsealpir.a
 
+bazel-bin
+bazel-out
+bazel-testlogs
+bazel-SealPIR
+
