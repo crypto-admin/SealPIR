@@ -25,6 +25,7 @@ class PIRServer {
     int serialize_reply(PirReply &reply, std::stringstream &stream);
 
     void set_galois_key(std::uint32_t client_id, seal::GaloisKeys galkey);
+    seal::GaloisKeys load_galois_key(std::istream &key);
 
     void simple_set(std::uint64_t index, seal::Plaintext pt);
     // This is used for querying an element of the database WITHOUT PIR.

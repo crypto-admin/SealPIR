@@ -55,12 +55,33 @@ cc_binary(
     ],
 )
 
+cc_binary(
+    name = "pir_client",
+    srcs = [
+        "main_client.cpp",
+        "pir_client.cpp",
+        "pir_client.hpp",
+        "pir_server.cpp",
+        "pir_server.hpp",
+    ],
+    copts = PIR_DEFAULT_COPTS,
+    includes = PIR_DEFAULT_INCLUDES,
+    deps = [
+        "//proto:payload_cc_grpc",
+        "@com_microsoft_seal//:seal",
+        "@com_github_grpc_grpc//:grpc++",
+        ":pir",
+    ],
+)
 
 cc_binary(
     name = "pir_server",
     srcs = [
+        "main_server.cpp",
         "pir_server.cpp",
         "pir_server.hpp",
+        "pir_client.cpp",
+        "pir_client.hpp",
     ],
     copts = PIR_DEFAULT_COPTS,
     includes = PIR_DEFAULT_INCLUDES,
@@ -68,6 +89,7 @@ cc_binary(
         "//proto:payload_cc_grpc",
         "@com_microsoft_seal//:seal",
         "@com_github_grpc_grpc//:grpc++",
+        ":pir",
     ],
 )
 

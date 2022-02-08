@@ -19,12 +19,22 @@ package pir;
 
 service Query {
   rpc sendQuery (Request) returns (Response) {}
+  rpc sendQueryStream (Request1) returns (Response1) {}
   rpc sayHello (HelloRequest) returns (HelloReply) {}
+  rpc sendGalorisKey(KeyRequest) returns (KeyResponse) {}
 }
 
 // A set of ciphertexts, used for queries or responses.
 message Ciphertexts {
   repeated bytes ct = 1;
+}
+
+message KeyRequest {
+  bytes galois_keys = 1;
+}
+
+message KeyResponse {
+  string reply = 1;
 }
 
 // Request sent from the client to the server. Includes 1 or more query
@@ -34,16 +44,33 @@ message Request {
   repeated Ciphertexts query = 1;
 
   // Galois keys, needed to compute substitution operation on ciphertexts.
-  bytes galois_keys = 2;
+  // bytes galois_keys = 2;
 
   // Relinearization keys, only needed for recursion depths more than 1.
-  bytes relin_keys = 3;
+  // bytes relin_keys = 3;
 }
 
 // Response to a query, a set of ciphertexts.
 message Response {
   // Reply to query as a set of 1 or more serialized ciphertexts.
   repeated Ciphertexts reply = 1;
+}
+
+message Request1 {
+  // Each query may have 1 or more ciphertexts.
+  bytes query = 1;
+
+  // Galois keys, needed to compute substitution operation on ciphertexts.
+  // bytes galois_keys = 2;
+
+  // Relinearization keys, only needed for recursion depths more than 1.
+  // bytes relin_keys = 3;
+}
+
+// Response to a query, a set of ciphertexts.
+message Response1 {
+  // Reply to query as a set of 1 or more serialized ciphertexts.
+  bytes reply = 1;
 }
 
 // Private information retrieval setup parameters
@@ -84,3 +111,4 @@ message HelloRequest {
 message HelloReply {
   string message = 1;
 }
+

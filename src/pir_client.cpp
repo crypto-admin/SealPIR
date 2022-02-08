@@ -69,6 +69,26 @@ int PIRClient::generate_serialized_query(uint64_t desiredIndex, std::stringstrea
     return output_size;
 }
 
+PirReply PIRClient::deserialize_reply(stringstream &stream) {
+    PirReply q;
+
+    for (uint32_t i = 0; i < pir_params_.d; i++) {
+        // number of ciphertexts needed to encode the index for dimension i
+        // keeping into account that each ciphertext can encode up to poly_modulus_degree indexes
+        // In most cases this is usually 1.
+        uint32_t ctx_per_dimension = ceil((pir_params_.nvec[i] + 0.0) / enc_params_.poly_modulus_degree());
+
+        
+        for (uint32_t j = 0; j < ctx_per_dimension; j++) {
+          Ciphertext c;
+          c.load(*context_, stream);
+          q.push_back(c);
+        }
+       
+    }
+
+    return q;
+}
 
 PirQuery PIRClient::generate_query(uint64_t desiredIndex) {
 
